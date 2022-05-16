@@ -1,0 +1,7 @@
+.stats-container{
+    display:flex;
+    justify-content:center;
+}
+.stat{
+    margin: 0 10px;
+}
