@@ -6,6 +6,7 @@ import MainPage from './components/MainPage/MainPage';
 import HowToPlayPage from './components/HowToPlayPage/HowToPlayPage';
 import NavBar from './components/NavBar/NavBar';
 import Statistics from './components/Statistics/Statistics.js';
+import dictionary from './wordleBank'
 
 export const AppContext = createContext();
 
@@ -37,7 +38,7 @@ function App() {
     : { attempt: 0, letterPos:0 };
   });
 
-  const [wordSet, setWordSet] = useState(new Set())
+  const [wordSet, setWordSet] = useState(dictionary)
 
   // letter colors
   const [disabledLetter, setDisabledLetter] = useState([])
@@ -61,9 +62,7 @@ function App() {
   const correctWord = 'nashe';
 
   useEffect(()=>{
-    generateWordSet().then((words)=>{
-      setWordSet(words.wordSet);
-    })
+    setWordSet(dictionary);
   },[])
 
   const onSelectLetter = (keyVal) => {
@@ -91,7 +90,7 @@ function App() {
       currWord += board[currAttempt.attempt][i];
     }
 
-    if (wordSet.has(currWord.toLowerCase())){
+    if (wordSet.includes(currWord.toLowerCase())){
       setCurrentAttempt({ attempt: currAttempt.attempt + 1, letterPos: 0})
     }else{
       alert('palabra no encontrada')
