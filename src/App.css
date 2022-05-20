@@ -261,4 +261,7 @@ nav h1 {
   .text-container{
     margin: 0 25px;
   }
+  .getBack-btn{
+    margin-bottom:20px;
+  }
 }
