@@ -207,10 +207,16 @@ nav h1 {
 
 @media screen and (max-width:768px) {
   html{
-    overflow-y:hidden;
+    background-color: #121212;
   }
   .App{
-    overflow-y: hidden;
+    min-height: 100%;
+    margin-bottom:20px;
+  }
+  .how-to-play{
+    background-color: #121212;
+    min-height: 100%;
+
   }
   .keyboard{
     margin: 3%;
