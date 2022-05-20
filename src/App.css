@@ -225,15 +225,19 @@ nav h1 {
     height: calc(100vh - 20px);
     overflow-y: hidden;
     padding: 0;
-    justify-content:space-between;
-    align-items:space-between;
-    align-content: space-between;
+    justify-content:flex-start;
+    align-items:center;
+    align-content: flex-start;
     margin: 0;
+    margin-top: 10px;
+  }
+  .gameOver{
     margin-top: 10px;
   }
   .board{
     height: 400px;
     width: 340px;
+    margin: 0 10px;
   }
   .Examples{
     margin: auto 5%;
