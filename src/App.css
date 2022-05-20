@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background-color: #121212;
+  background-color: #5E60CE;
   min-width: 100vw;
   min-height: 100vh;
   height: 100%;
@@ -17,7 +17,7 @@ nav {
   height: 60px;
   width: 100%;
   margin: 0;
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid #6930C3;
   display: grid;
   place-items: center;
 }
@@ -25,8 +25,12 @@ nav {
 nav h1 {
   margin: 0;
   font-family: Helvetica, Arial, sans-serif;
-  color: white;
+  color: #fff;
   font-size: 45px;
+}
+.chardleLogo{
+  max-height: 50px;
+  margin: 0 20px;
 }
 .game {
   width: 100vw;
@@ -57,30 +61,34 @@ nav h1 {
 .letter {
   flex: 33%;
   height: 100%;
-  border: 1px solid grey;
+  border: 1px solid #6930C3;
+  background-color: #6930C3;
+  border-radius: 5px;
   margin: 5px;
   display: grid;
   place-items: center;
   font-size: 20px;
   font-weight: bolder;
   color: white;
+  text-shadow: 2px 2px 2px rgba(0,0,0,0.21);
   font-family: Arial, Helvetica, sans-serif;
   transition: background-color .5s ease-in-out, border .5s ease-in-out;
 }
 
 #correct {
-  background-color: #528d4e;
-  border: 1px solid #528d4e;
+  background-color: #64DFDF;
+  border: 1px solid #64DFDF;
 }
 
 #almost {
-  background-color: #b49f39;
-  border: 1px solid #b49f39;
+  background-color: #f7db53;
+  border: 1px solid #f7db53;
 }
 
 #error {
-  background-color: #3a393c;
-  border: 1px solid #3a393c;
+  background-color: #5E60CE;
+  border: 1px solid #5E60CE;
+  opacity: .7;
 }
 
 .keyboard {
@@ -120,46 +128,54 @@ nav h1 {
   display: grid;
   place-items: center;
   font-size: 15px;
-  background-color: grey;
+  text-shadow: 2px 2px 2px rgba(0,0,0,0.21);
+  background-color: #6930C3;
   color: white;
   font-family: Arial, Helvetica, sans-serif;
   cursor: pointer;
   transition: background-color 0.5s ease-in-out;
 }
 .key.correctGuess{
-  background-color: #528d4e;
+  background-color: #64DFDF;
 }
 .key.almostLetter{
-  background-color: #b49f39;
+  background-color: #f7db53;
 }
 
 #big {
   width:65px;
 }
 #disabled {
-  background-color: #3a393c;
+  background-color: #5E60CE;
+  opacity: 0.7;
 }
 
 /* game tile */
 .tile{
   font-size: 1.5em;
   text-transform: uppercase;
-  border: 1px solid grey;
+  border: 1px solid #6930C3;
+  background-color: #6930C3;
+  border-radius: 5px;
   margin: 5px;
   padding: 0px 25px;
   font-weight: bolder;
+  text-shadow: 2px 2px 2px rgba(0,0,0,0.21);
   color: white;
   font-family: Arial, Helvetica, sans-serif;
 }
 .tile.correct{
-  background-color: #528d4e;
+  background-color: #64dfdf;
+  border-color: #64DFDF;
 }
 .tile.almost{
-  background-color: #b49f39;
+  background-color: #f7db53;
+  border-color: #f7db53;
 }
 .notInTheWord{
-  background-color: #3a393c;
+  background-color: #5E60CE;
   border: none;
+  opacity: .7;
 }
 .Examples{
   display: flex;
@@ -179,10 +195,14 @@ nav h1 {
   text-decoration: none;
   color: #fff;
   padding: 10px;
-  border: 1px solid grey;
+  border: 1px solid #6930C3;
+  background-color: #6930C3;
+  border-radius: 5px;
+  margin-top:25px;
 }
 .getBack-btn:hover{
-  background-color: #3a393c;
+  background-color: #7400B8;
+  border-color: #7400B8;
 }
 
 /* NAVBAR STYLES */
@@ -207,14 +227,14 @@ nav h1 {
 
 @media screen and (max-width:768px) {
   html{
-    background-color: #121212;
+    background-color: #5E60CE;
   }
   .App{
     min-height: 100%;
     margin-bottom:20px;
   }
   .how-to-play{
-    background-color: #121212;
+    background-color: #5E60CE;
     min-height: 100%;
 
   }
