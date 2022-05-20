@@ -59,7 +59,7 @@ function App() {
       : {gameOver:false, guessedWord: false} ;
   })
 
-  const correctWord = 'nashe';
+  const correctWord = 'spike';
 
   useEffect(()=>{
     setWordSet(dictionary);

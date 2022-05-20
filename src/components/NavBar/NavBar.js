@@ -10,7 +10,7 @@ function NavBar() {
             <FontAwesomeIcon icon={faCircleQuestion}/>
         </Link>
         <Link to='/' className='how-to-play-link'>
-            <h1 className='navbar-title'>wordle</h1>
+            <h1 className='navbar-title'>CHARDLE</h1>
         </Link>
         <Link to='/statistics' className='how-to-play-link'>
             <FontAwesomeIcon icon={faSquarePollVertical}/>
