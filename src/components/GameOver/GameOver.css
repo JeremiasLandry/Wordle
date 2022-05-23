@@ -1,0 +1,10 @@
+.gameOver-text{
+    margin: 0;
+}
+.dailyPic{
+    border-radius: 5px;
+}
+.gameOver h1{
+    font-size:1.5em;
+    text-align: center;
+}

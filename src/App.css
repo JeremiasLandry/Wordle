@@ -191,6 +191,13 @@ nav h1 {
 .how-to-play{
   font-family: Arial, Helvetica, sans-serif;
 }
+.gameOver{
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  display:flex;
+  justify-content: center;
+  flex-direction: column;
+}
 .getBack-btn{
   text-decoration: none;
   color: #fff;
@@ -259,6 +266,7 @@ nav h1 {
   }
   .gameOver{
     margin-top: 10px;
+    
   }
   .board{
     height: 400px;

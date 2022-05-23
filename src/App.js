@@ -50,7 +50,8 @@ function App() {
   const [maxStreak, setMaxStreak] = useState(0);
   const [playerWins, setPlayerWins] = useState(handleStorage('playerWins'));
   const [winPercentage, setWinPercentage] = useState(0);
-  const [playedToday,setPlayedToday] = useState(false)
+  const [playedToday,setPlayedToday] = useState(false);
+
   //gameOver state
   const [gameOver, setGameOver] = useState(() => {
     const stickyValue = window.localStorage.getItem('gameOver');
@@ -59,7 +60,7 @@ function App() {
       : {gameOver:false, guessedWord: false} ;
   })
 
-  const correctWord = 'spike';
+  const correctWord = 'woody';
 
   useEffect(()=>{
     setWordSet(dictionary);
