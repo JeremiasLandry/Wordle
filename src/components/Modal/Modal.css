@@ -9,6 +9,7 @@
     align-items:center;
     background-color: rgba(0, 0, 0, 0.466);
     background-repeat: repeat;
+    overflow-y: hidden;
 }
 .window{
     position:fixed;
