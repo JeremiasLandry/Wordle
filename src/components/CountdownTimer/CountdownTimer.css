@@ -1,0 +1,13 @@
+.countdown-timer{
+    margin-top: 15px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+}
+.time-group{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+}

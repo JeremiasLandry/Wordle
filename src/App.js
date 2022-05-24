@@ -155,6 +155,7 @@ function App() {
      <BrowserRouter>
         <div className="App">
           <NavBar/>
+          <hr/>
           <Routes>
             <Route path="/" element={<MainPage/>}/>
             <Route path='/how-to-play' element={<HowToPlayPage/>}/>

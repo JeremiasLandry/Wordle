@@ -17,7 +17,6 @@ nav {
   height: 60px;
   width: 100%;
   margin: 0;
-  border-bottom: 1px solid #6930C3;
   display: grid;
   place-items: center;
 }
