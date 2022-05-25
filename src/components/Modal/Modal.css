@@ -1,5 +1,5 @@
 .wrapper{
-    position:absolute;
+    position:fixed;
     top:0;
     left:0;
     width:100%;
@@ -12,7 +12,7 @@
     overflow-y: hidden;
 }
 .window{
-    position:fixed;
+    position:absolute;
     background-color: #5E60CE;
     border-radius: 5px;
     padding: 15px;

@@ -7,6 +7,7 @@ import HowToPlayPage from './components/HowToPlayPage/HowToPlayPage';
 import NavBar from './components/NavBar/NavBar';
 import Statistics from './components/Statistics/Statistics.js';
 import dictionary from './wordleBank'
+import Warning from './components/Warning/Warning'
 
 export const AppContext = createContext();
 
@@ -14,7 +15,7 @@ const handleStorage = (stat) => {
   const statValue = window.localStorage.getItem('stats');
   const handleObject = () => {
     const statData = JSON.parse(statValue);
-    const stats = statData.find((e)=> e[stat]);
+    const stats = statData.find((e)=> e[stat]) ? statData.find((e)=> e[stat]) : 0;
     return stats[stat]
   }
   return statValue !== null
@@ -59,8 +60,10 @@ function App() {
       ? JSON.parse(stickyValue)
       : {gameOver:false, guessedWord: false} ;
   })
-
-  const correctWord = 'woody';
+  //modal state for: 'word not found' warning
+  const [modalShow,setModalShow] = useState(false);
+  //daily word
+  const correctWord = 'bambi';
 
   useEffect(()=>{
     setWordSet(dictionary);
@@ -94,7 +97,7 @@ function App() {
     if (wordSet.includes(currWord.toLowerCase())){
       setCurrentAttempt({ attempt: currAttempt.attempt + 1, letterPos: 0})
     }else{
-      alert('palabra no encontrada')
+      setModalShow(true)
     }
 
     if (currWord.toLowerCase() === correctWord){
@@ -103,6 +106,9 @@ function App() {
       setGamesPlayed(gamesPlayed + 1)
       setCurrentStreak(currentStreak + 1)
       setPlayerWins(playerWins + 1)
+
+      let percentage = (playerWins * 100) / gamesPlayed ;
+      setWinPercentage(parseInt(percentage))
       
 
       return;
@@ -113,7 +119,8 @@ function App() {
 
       setGamesPlayed(gamesPlayed + 1)
       setCurrentStreak(1)
-      
+      let percentage = (playerWins * 100) / gamesPlayed ;
+      setWinPercentage(parseInt(percentage))
 
       return;
     }
@@ -125,6 +132,12 @@ function App() {
       setWinPercentage(parseInt(percentage))
   }
 
+  useEffect(() =>{
+      if (gamesPlayed > 0 && playerWins === 0 || isNaN(winPercentage)){
+      setWinPercentage(0)
+    }
+  },[gamesPlayed])
+  
 
   return (
     <AppContext.Provider
@@ -150,12 +163,19 @@ function App() {
       playerWins,
       winPercentage,
       playedToday,
-      setPlayedToday
+      setPlayedToday,
+      modalShow,
+      setModalShow
     }}>
      <BrowserRouter>
         <div className="App">
           <NavBar/>
           <hr/>
+          {
+            modalShow
+            ? <Warning/>
+            : ''
+          }
           <Routes>
             <Route path="/" element={<MainPage/>}/>
             <Route path='/how-to-play' element={<HowToPlayPage/>}/>

@@ -1,0 +1,38 @@
+.warning-wrapper{
+    position:fixed;
+    top:0;
+    right: 0;
+    width:100%;
+    height:100%;
+    display:flex;
+    padding-top: 90px;
+    justify-content:center;
+    align-items:flex-start;
+    background-color: transparent;
+    background-repeat: repeat;
+    overflow-y: hidden;
+}
+.warning-window{
+    display:flex;
+    text-align: center;
+    justify-content:center;
+    position:absolute;
+    background-color: #fff;
+    border-radius: 5px;
+    font-size: 15px;
+    z-index: 10;
+    align-items:center;
+    padding: 0 5px;
+    font-weight:600;
+    min-width:120px;
+    height: 30px;
+    animation: fade-in 0.3s ease-in;
+}
+.warning-window p{
+    margin:0;
+}
+
+@keyframes fade-in {
+    0% { opacity: 0 }
+    100% { opacity: 1 }
+}

@@ -5,7 +5,7 @@ import './Modal.css'
 
 export default class Modal extends Component {
   render() {
-    const { children, activeModal, setActiveModal } = this.props;
+    const { children, activeModal, setActiveModal, wrapperClass, windowClass, buttonShow} = this.props;
 
     const toggleModal = () => {
       setActiveModal(!activeModal);
@@ -14,9 +14,13 @@ export default class Modal extends Component {
     return (
       <Portal>
           {activeModal && (
-              <div className="wrapper">
-                  <div className="window">
-                    <button className="closeBtn" onClick={() => toggleModal()}>x</button>
+              <div className={wrapperClass}>
+                  <div className={windowClass}>
+                    {
+                      buttonShow &&
+                      <button className="closeBtn" onClick={() => toggleModal()}>x</button> 
+                    }
+                    
                     <div>{children}</div>
                   </div>
               </div>

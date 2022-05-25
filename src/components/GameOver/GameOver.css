@@ -4,6 +4,7 @@
 }
 .dailyPic{
     border-radius: 5px;
+    max-width: 300px;
 }
 .gameOver h1{
     font-size:1.5em;
