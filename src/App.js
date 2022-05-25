@@ -9,6 +9,18 @@ import Statistics from './components/Statistics/Statistics.js';
 import dictionary from './wordleBank'
 import Warning from './components/Warning/Warning'
 
+const today = new Date();
+const tomorrow = new Date(today);
+tomorrow.setDate(tomorrow.getDate() + 1)
+tomorrow.setHours(0,0,0,0)
+
+if (today.getTime() > 1653521287000){
+  localStorage.removeItem('gameOver');
+  localStorage.removeItem('board');
+  localStorage.removeItem('currAttempt');
+}
+
+
 const handleStorage = (stat) => {
   const statValue = window.localStorage.getItem('stats');
   const handleObject = () => {
@@ -64,26 +76,26 @@ function App() {
   //daily word
   const correctWord = 'bambi';
   //verify if the player has already played today or was it another day
-  let boardWord = "";
+  // let boardWord = "";
 
-  for (let i = 0; i < 5; i++){
-    boardWord += board[currAttempt.attempt][i];
-  }
+  // for (let i = 0; i < 5; i++){
+  //   boardWord += board[currAttempt.attempt][i];
+  // }
 
-  let localCurrWord = localStorage.getItem('currWord') || boardWord;
+  // let localCurrWord = localStorage.getItem('currWord') || boardWord;
  
-  useEffect(() =>{
-    if (localCurrWord){
-      if (localCurrWord.toLowerCase() !== correctWord){
-        if(gameOver.gameOver){
-          localStorage.removeItem('gameOver');
-          localStorage.removeItem('board');
-          localStorage.removeItem('currAttempt');
-        }
-      }
-    }
-  },[])
-  
+  // useEffect(() =>{
+  //   if (localCurrWord){
+  //     if (localCurrWord.toLowerCase() !== correctWord){
+  //       if(gameOver.gameOver){
+  //         localStorage.removeItem('gameOver');
+  //         localStorage.removeItem('board');
+  //         localStorage.removeItem('currAttempt');
+  //       }
+  //     }
+  //   }
+  // },[])
+
   //modal state for: 'word not found' warning
   const [modalShow,setModalShow] = useState(false);
 
