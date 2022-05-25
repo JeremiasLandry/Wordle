@@ -9,8 +9,6 @@ import Statistics from './components/Statistics/Statistics.js';
 import dictionary from './wordleBank'
 import Warning from './components/Warning/Warning'
 
-export const AppContext = createContext();
-
 const handleStorage = (stat) => {
   const statValue = window.localStorage.getItem('stats');
   const handleObject = () => {
@@ -23,7 +21,10 @@ const handleStorage = (stat) => {
   : 0 ;
 }
 
+export const AppContext = createContext();
+
 function App() {
+
   const [board, setBoard] = useState(() => {
     const stickyValue = window.localStorage.getItem('board');
     return stickyValue !== null
@@ -45,13 +46,13 @@ function App() {
   const [disabledLetter, setDisabledLetter] = useState([])
   const [guessedLetter, setGuessedLetter] = useState([]);
   const [almostLetter, setAlmostLetter] = useState([]);
-  //game stats
+  //game stats and states
   const [gamesPlayed, setGamesPlayed] = useState(handleStorage('gamesPlayed'));
   const [currentStreak, setCurrentStreak] = useState(handleStorage('currentStreak'));
   const [maxStreak, setMaxStreak] = useState(0);
   const [playerWins, setPlayerWins] = useState(handleStorage('playerWins'));
   const [winPercentage, setWinPercentage] = useState(0);
-  const [playedToday,setPlayedToday] = useState(false);
+
 
   //gameOver state
   const [gameOver, setGameOver] = useState(() => {
@@ -60,10 +61,30 @@ function App() {
       ? JSON.parse(stickyValue)
       : {gameOver:false, guessedWord: false} ;
   })
-  //modal state for: 'word not found' warning
-  const [modalShow,setModalShow] = useState(false);
   //daily word
   const correctWord = 'bambi';
+  //verify if the player has already played today or was it another day
+  let boardWord = "";
+
+  for (let i = 0; i < 5; i++){
+    boardWord += board[currAttempt.attempt][i];
+  }
+
+  let localCurrWord = localStorage.getItem('currWord') || boardWord;
+ 
+  useEffect(() =>{
+    if (localCurrWord){
+      if (localCurrWord.toLowerCase() !== correctWord){
+        if(gameOver.gameOver){
+          localStorage.removeItem('gameOver');
+          localStorage.removeItem('board');
+          localStorage.removeItem('currAttempt');
+        }
+      }
+    }
+  },[])
+  //modal state for: 'word not found' warning
+  const [modalShow,setModalShow] = useState(false);
 
   useEffect(()=>{
     setWordSet(dictionary);
@@ -102,7 +123,7 @@ function App() {
 
     if (currWord.toLowerCase() === correctWord){
       setGameOver({gameOver: true, guessedWord: true})
-
+      localStorage.setItem('currWord', currWord)
       setGamesPlayed(gamesPlayed + 1)
       setCurrentStreak(currentStreak + 1)
       setPlayerWins(playerWins + 1)
@@ -162,8 +183,6 @@ function App() {
       maxStreak,
       playerWins,
       winPercentage,
-      playedToday,
-      setPlayedToday,
       modalShow,
       setModalShow
     }}>

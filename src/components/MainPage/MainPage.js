@@ -3,11 +3,9 @@ import { AppContext } from '../../App';
 import Board from '../Board/Board'
 import Keyboard from '../Keyboard/Keyboard'
 import GameOver from '../GameOver/GameOver'
-import NextWordleScreen from '../NextWordleScreen/NextWordleScreen'
-
 
 export default function MainPage() {
-  const {gameOver, gamesPlayed, currentStreak, playerWins, playedToday} = useContext(AppContext);
+  const {gameOver, gamesPlayed, currentStreak, playerWins} = useContext(AppContext);
 
   useEffect(()=>{
       if (gameOver.gameOver){

@@ -22,11 +22,13 @@ const CountdownTimer = ({countdownTimestampMs}) => {
     function updateRemainingTime(countdown) {
         setRemainingTime(getRemainingTimeUntilMsTimestamp(countdown));
     }
+    
     if (remainingTime.days === '00' && remainingTime.hours === '00' && remainingTime.minutes === '00' && remainingTime.seconds === '00') {
         localStorage.removeItem('gameOver');
         localStorage.removeItem('board');
         localStorage.removeItem('currAttempt');
     }
+
     return(
         <div className="countdown-timer">
             <div className='time-group'>

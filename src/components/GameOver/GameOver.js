@@ -8,12 +8,8 @@ import './GameOver.css';
 import CountdownTimer from '../CountdownTimer/CountdownTimer'
 
 function GameOver() {
-  const {gameOver, correctWord, currAttempt, setPlayedToday, board } = useContext(AppContext)
+  const {gameOver, correctWord, currAttempt, board} = useContext(AppContext)
   const [activeModal,setActiveModal] = useState(true);
-  
-  useEffect(()=>{
-    setPlayedToday(true)
-  },[])
 
   localStorage.setItem("board", JSON.stringify(board))
   localStorage.setItem("gameOver", JSON.stringify(gameOver))
