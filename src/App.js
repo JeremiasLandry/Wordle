@@ -83,6 +83,7 @@ function App() {
       }
     }
   },[])
+  
   //modal state for: 'word not found' warning
   const [modalShow,setModalShow] = useState(false);
 
