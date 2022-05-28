@@ -41,7 +41,7 @@ function GameOver() {
           {gameOver.guessedWord && (<p className='gameOver-text gameOver-msg'>you got it right in {currAttempt.attempt} attempt/s</p>)}
           <hr style={{width: '100%'}}/>
           <span className='gameOver-nextChardle'>NEXT CHARDLE:</span>
-          <CountdownTimer countdownTimestampMs={1653521287000}/>
+          <CountdownTimer countdownTimestampMs={tomorrow}/>
       </div>
     </Modal>
   )

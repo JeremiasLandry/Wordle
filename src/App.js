@@ -6,20 +6,8 @@ import MainPage from './components/MainPage/MainPage';
 import HowToPlayPage from './components/HowToPlayPage/HowToPlayPage';
 import NavBar from './components/NavBar/NavBar';
 import Statistics from './components/Statistics/Statistics.js';
-import dictionary from './wordleBank'
-import Warning from './components/Warning/Warning'
-
-const today = new Date();
-const tomorrow = new Date(today);
-tomorrow.setDate(tomorrow.getDate() + 1)
-tomorrow.setHours(0,0,0,0)
-
-if (today.getTime() > 1653521287000){
-  localStorage.removeItem('gameOver');
-  localStorage.removeItem('board');
-  localStorage.removeItem('currAttempt');
-}
-
+import dictionary from './wordleBank';
+import Warning from './components/Warning/Warning';
 
 const handleStorage = (stat) => {
   const statValue = window.localStorage.getItem('stats');
@@ -36,6 +24,62 @@ const handleStorage = (stat) => {
 export const AppContext = createContext();
 
 function App() {
+  const [today, setToday] = useState(localStorage.getItem('today') !== null ? localStorage.getItem('today') : 0);
+  const [tomorrow, setTomorrow] = useState(localStorage.getItem('tomorrow') !== null ? localStorage.getItem('tomorrow') : 0);
+
+  //Reset the board and the attemps when countdown is 00;
+  function resetGame(){
+    const todayData = new Date();
+    const tomorrowData = new Date(todayData);
+    tomorrowData.setDate(tomorrowData.getDate() + 1)
+    tomorrowData.setHours(0,0,0,0)
+    //save data
+    localStorage.setItem('today',JSON.stringify(todayData.getTime()))
+    localStorage.setItem('tomorrow',JSON.stringify(tomorrowData.getTime()))
+    setToday(todayData.getTime())
+    setTomorrow(tomorrowData.getTime())
+    //reset states
+    if (today > tomorrow){
+      localStorage.removeItem('gameOver');
+      localStorage.removeItem('board');
+      localStorage.removeItem('currAttempt');
+    }
+  }
+
+  function getTodaysDate(){
+    let date = new Date()
+
+    let day = date.getDate()
+    let month = date.getMonth() + 1
+    let year = date.getFullYear()
+
+    let fullDate;
+
+    if(month < 10){
+      fullDate = `${day}-0${month}-${year}`;
+    }else{
+      fullDate = `${day}-${month}-${year}`;
+    }
+    return fullDate
+  }
+
+  function playedToday(){
+    if(localStorage.getItem('fullDate') !== null){
+      const oldDate = localStorage.getItem('fullDate');
+      let todayDate = getTodaysDate();
+      if (todayDate !== oldDate){
+        resetGame()
+      }
+    }else{
+      const todayStatus = getTodaysDate();
+      localStorage.setItem('fullDate', JSON.stringify(todayStatus));
+      resetGame()
+    }
+  }
+
+  useEffect(()=>{
+    playedToday()
+  },[])
 
   const [board, setBoard] = useState(() => {
     const stickyValue = window.localStorage.getItem('board');
@@ -75,27 +119,6 @@ function App() {
   })
   //daily word
   const correctWord = 'bambi';
-  //verify if the player has already played today or was it another day
-  // let boardWord = "";
-
-  // for (let i = 0; i < 5; i++){
-  //   boardWord += board[currAttempt.attempt][i];
-  // }
-
-  // let localCurrWord = localStorage.getItem('currWord') || boardWord;
- 
-  // useEffect(() =>{
-  //   if (localCurrWord){
-  //     if (localCurrWord.toLowerCase() !== correctWord){
-  //       if(gameOver.gameOver){
-  //         localStorage.removeItem('gameOver');
-  //         localStorage.removeItem('board');
-  //         localStorage.removeItem('currAttempt');
-  //       }
-  //     }
-  //   }
-  // },[])
-
   //modal state for: 'word not found' warning
   const [modalShow,setModalShow] = useState(false);
 
