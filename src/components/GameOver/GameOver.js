@@ -11,9 +11,11 @@ function GameOver() {
   const {gameOver, correctWord, currAttempt, board} = useContext(AppContext)
   const [activeModal,setActiveModal] = useState(true);
 
-  localStorage.setItem("board", JSON.stringify(board))
-  localStorage.setItem("gameOver", JSON.stringify(gameOver))
-  localStorage.setItem("currAttempt", JSON.stringify(currAttempt))
+  // useEffect(()=>{
+  //   localStorage.setItem("board", JSON.stringify(board))
+  //   localStorage.setItem("gameOver", JSON.stringify(gameOver))
+  //   localStorage.setItem("currAttempt", JSON.stringify(currAttempt))
+  // },[])
 
   const today = new Date();
   const tomorrow = new Date(today);

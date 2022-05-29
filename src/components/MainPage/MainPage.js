@@ -5,7 +5,7 @@ import Keyboard from '../Keyboard/Keyboard'
 import GameOver from '../GameOver/GameOver'
 
 export default function MainPage() {
-  const {gameOver, gamesPlayed, currentStreak, playerWins} = useContext(AppContext);
+  const {gameOver, gamesPlayed, currentStreak, playerWins, board, currAttempt} = useContext(AppContext);
 
   useEffect(()=>{
       if (gameOver.gameOver){

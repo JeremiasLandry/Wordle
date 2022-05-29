@@ -1,6 +1,7 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import {getRemainingTimeUntilMsTimestamp} from './Utils/CountdownTimerUtils';
-import './CountdownTimer.css'
+import { AppContext } from '../../App'
+import './CountdownTimer.css';
 
 const defaultRemainingTime = {
     seconds: '00',
@@ -10,6 +11,12 @@ const defaultRemainingTime = {
 }
 
 const CountdownTimer = ({countdownTimestampMs}) => {
+    const {gameOver, board, currAttempt} = useContext(AppContext);
+
+    localStorage.setItem("board", JSON.stringify(board))
+    localStorage.setItem("gameOver", JSON.stringify(gameOver))
+    localStorage.setItem("currAttempt", JSON.stringify(currAttempt))
+
     const [remainingTime, setRemainingTime] = useState(defaultRemainingTime);
 
     useEffect(() => {

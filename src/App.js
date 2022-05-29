@@ -108,8 +108,6 @@ function App() {
   const [maxStreak, setMaxStreak] = useState(0);
   const [playerWins, setPlayerWins] = useState(handleStorage('playerWins'));
   const [winPercentage, setWinPercentage] = useState(0);
-
-
   //gameOver state
   const [gameOver, setGameOver] = useState(() => {
     const stickyValue = window.localStorage.getItem('gameOver');
@@ -167,7 +165,6 @@ function App() {
       let percentage = (playerWins * 100) / gamesPlayed ;
       setWinPercentage(parseInt(percentage))
       
-
       return;
     }
 
