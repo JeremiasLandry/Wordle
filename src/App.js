@@ -28,7 +28,9 @@ function App() {
   const [tomorrow, setTomorrow] = useState(localStorage.getItem('tomorrow') !== null ? localStorage.getItem('tomorrow') : 0);
 
   //Reset the board and the attemps when countdown is 00;
-  function resetGame(){
+  function resetGame(todaysDate){
+    localStorage.setItem('fullDate', JSON.stringify(todaysDate))
+
     const todayData = new Date();
     const tomorrowData = new Date(todayData);
     tomorrowData.setDate(tomorrowData.getDate() + 1)
@@ -38,12 +40,12 @@ function App() {
     localStorage.setItem('tomorrow',JSON.stringify(tomorrowData.getTime()))
     setToday(todayData.getTime())
     setTomorrow(tomorrowData.getTime())
+
     //reset states
-    if (today > tomorrow){
-      localStorage.removeItem('gameOver');
-      localStorage.removeItem('board');
-      localStorage.removeItem('currAttempt');
-    }
+    localStorage.removeItem('gameOver');
+    localStorage.removeItem('board');
+    localStorage.removeItem('currAttempt');
+    
   }
 
   function getTodaysDate(){
@@ -65,21 +67,21 @@ function App() {
 
   function playedToday(){
     if(localStorage.getItem('fullDate') !== null){
-      const oldDate = localStorage.getItem('fullDate');
-      let todayDate = getTodaysDate();
+      const oldDate = JSON.parse(localStorage.getItem('fullDate'));
+      const todayDate = getTodaysDate();
       if (todayDate !== oldDate){
-        resetGame()
+        resetGame(todayDate)
       }
     }else{
       const todayStatus = getTodaysDate();
       localStorage.setItem('fullDate', JSON.stringify(todayStatus));
-      resetGame()
+      resetGame(todayStatus)
     }
   }
 
   useEffect(()=>{
-    playedToday()
-  },[])
+    playedToday() 
+  },[today,tomorrow])
 
   const [board, setBoard] = useState(() => {
     const stickyValue = window.localStorage.getItem('board');
