@@ -24,6 +24,9 @@ const handleStorage = (stat) => {
 export const AppContext = createContext();
 
 function App() {
+  //daily word
+  const [correctWord, setCorrectWord] = useState('mario');
+  //Today & Tomorrow Timestamp
   const [today, setToday] = useState(localStorage.getItem('today') !== null ? localStorage.getItem('today') : 0);
   const [tomorrow, setTomorrow] = useState(localStorage.getItem('tomorrow') !== null ? localStorage.getItem('tomorrow') : 0);
 
@@ -81,7 +84,7 @@ function App() {
 
   useEffect(()=>{
     playedToday() 
-  },[today,tomorrow])
+  },[today,tomorrow, correctWord])
 
   const [board, setBoard] = useState(() => {
     const stickyValue = window.localStorage.getItem('board');
@@ -117,8 +120,7 @@ function App() {
       ? JSON.parse(stickyValue)
       : {gameOver:false, guessedWord: false} ;
   })
-  //daily word
-  const correctWord = 'bambi';
+
   //modal state for: 'word not found' warning
   const [modalShow,setModalShow] = useState(false);
 
@@ -222,7 +224,9 @@ function App() {
       playerWins,
       winPercentage,
       modalShow,
-      setModalShow
+      setModalShow,
+      correctWord, 
+      setCorrectWord
     }}>
      <BrowserRouter>
         <div className="App">

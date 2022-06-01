@@ -11,7 +11,7 @@ const defaultRemainingTime = {
 }
 
 const CountdownTimer = ({countdownTimestampMs}) => {
-    const {gameOver, board, currAttempt} = useContext(AppContext);
+    const {gameOver, board, currAttempt, correctWord, setCorrectWord} = useContext(AppContext);
 
     localStorage.setItem("board", JSON.stringify(board))
     localStorage.setItem("gameOver", JSON.stringify(gameOver))
@@ -30,10 +30,11 @@ const CountdownTimer = ({countdownTimestampMs}) => {
         setRemainingTime(getRemainingTimeUntilMsTimestamp(countdown));
     }
     
-    if (remainingTime.days === '00' && remainingTime.hours === '00' && remainingTime.minutes === '00' && remainingTime.seconds === '00') {
+    if (remainingTime.days === '00' && remainingTime.hours === '00' && remainingTime.minutes === '00' && remainingTime.seconds === '01') {
         localStorage.removeItem('gameOver');
         localStorage.removeItem('board');
         localStorage.removeItem('currAttempt');
+        setCorrectWord('waiting for next character')
     }
 
     return(
