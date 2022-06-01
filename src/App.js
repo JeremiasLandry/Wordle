@@ -150,14 +150,16 @@ function App() {
     }
 
     if (wordSet.includes(currWord.toLowerCase())){
+      
       setCurrentAttempt({ attempt: currAttempt.attempt + 1, letterPos: 0})
+      localStorage.setItem('currWord', currWord)
     }else{
       setModalShow(true)
     }
 
     if (currWord.toLowerCase() === correctWord){
-      setGameOver({gameOver: true, guessedWord: true})
       localStorage.setItem('currWord', currWord)
+      setGameOver({gameOver: true, guessedWord: true})
       setGamesPlayed(gamesPlayed + 1)
       setCurrentStreak(currentStreak + 1)
       setPlayerWins(playerWins + 1)
@@ -169,8 +171,9 @@ function App() {
     }
 
     if (currAttempt.attempt === 5){
+      
       setGameOver({ gameOver: true, guessedWord: false });
-
+      localStorage.setItem('currWord', currWord)
       setGamesPlayed(gamesPlayed + 1)
       setCurrentStreak(1)
       let percentage = (playerWins * 100) / gamesPlayed ;

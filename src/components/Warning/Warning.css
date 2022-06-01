@@ -11,6 +11,7 @@
     background-color: transparent;
     background-repeat: repeat;
     overflow-y: hidden;
+    font-family: Arial, Helvetica, sans-serif;
 }
 .warning-window{
     display:flex;
@@ -30,6 +31,7 @@
 }
 .warning-window p{
     margin:0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 @keyframes fade-in {
