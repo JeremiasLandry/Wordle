@@ -50,7 +50,10 @@ function App() {
     localStorage.removeItem('currAttempt');
     setBoard(boardDefault)
     setGameOver({gameOver:false, guessedWord: false})
-    
+    setCurrentAttempt({ attempt: 0, letterPos:0 })
+    setDisabledLetter([])
+    setGuessedLetter([])
+    setAlmostLetter([])
   }
 
   function getTodaysDate(){
