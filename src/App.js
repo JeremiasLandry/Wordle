@@ -48,6 +48,8 @@ function App() {
     localStorage.removeItem('gameOver');
     localStorage.removeItem('board');
     localStorage.removeItem('currAttempt');
+    setBoard(boardDefault)
+    setGameOver({gameOver:false, guessedWord: false})
     
   }
 
@@ -77,14 +79,13 @@ function App() {
       }
     }else{
       const todayStatus = getTodaysDate();
-      localStorage.setItem('fullDate', JSON.stringify(todayStatus));
       resetGame(todayStatus)
     }
   }
 
   useEffect(()=>{
     playedToday() 
-  },[today,tomorrow, correctWord])
+  },[])
 
   const [board, setBoard] = useState(() => {
     const stickyValue = window.localStorage.getItem('board');
@@ -95,7 +96,6 @@ function App() {
   
   const [currAttempt, setCurrentAttempt] = useState(() => {
     const statValue = JSON.parse(window.localStorage.getItem('currAttempt'));
-        
     return statValue !== null
     ? statValue
     : { attempt: 0, letterPos:0 };
