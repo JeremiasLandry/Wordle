@@ -9,7 +9,7 @@ function HowToPlayPage() {
     <div className='how-to-play'>
         <h1>HOW TO PLAY</h1>
         <div className="text-container">
-            <span>Guess the <b>CHARDLE</b> in six tries</span>
+            <span>Guess the <b>CHARDEX</b> word in six tries</span>
             <br/>
             <span>Each guess must be a valid five-letter word conforming a fictional character's name. Hit the enter button to submit</span>
             <br/>
@@ -49,7 +49,7 @@ function HowToPlayPage() {
                     <GameTile letter='a'/>
                     <GameTile letter='n'/>
                     <GameTile letter='n'/>
-                    <GameTile letter='i' evaluation='notInTheWord'/>
+                    <GameTile letter='i' evaluation='grey'/>
                     <GameTile letter='e'/>
                 </div>
                 <p>
