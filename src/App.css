@@ -129,9 +129,15 @@ nav h1 {
   align-items: center;
   margin-top: 40px;
   gap: 10px;
-  /* ensure it participates in normal layout on desktop */
-  position: static;
-  width: 100%;
+  /* keep keyboard as a centered rectangle that scales proportionally
+     occupy 90% of available width so there's ~5% space on each side */
+  width: 90%;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+  /* enforce a fixed rectangle silhouette so the keyboard always keeps its shape
+     width / height = 10 / 4 (adjustable) — it will scale proportionally */
+  aspect-ratio: 10 / 4;
 }
 
 /* target only rows inside keyboard to avoid interfering with board rows */
@@ -183,10 +189,15 @@ nav h1 {
   :root{
     --kb-side-gap: 8px;
     /* make key width responsive but clamped so proportions remain */
-    --key-w: clamp(32px, 7.5vw, 36px);
-    --key-h: calc(var(--key-w) * 1.3);
-    --key-gap: 6px;
+    --key-w: clamp(24px, 7.5vw, 36px);
+    --key-h: calc(var(--key-w) * 1.28);
+    /* tighten gap a bit so rows fit comfortably on very narrow screens */
+    --key-gap: 3px;
     --keyboard-rows: 3;
+    /* desired bottom margin for keyboard: use a clamped value so it's roughly
+       comfortable across devices; interprets the user's "10cm" request as
+       a visual large gap (min ~48px, prefer ~10vh, max 120px) */
+    --kb-bottom-gap: clamp(48px, 10vh, 120px);
   }
 
   /* Pin keyboard to bottom (force with important to avoid other rules) */
@@ -194,24 +205,48 @@ nav h1 {
     position: fixed !important;
     left: env(safe-area-inset-left, var(--kb-side-gap)) !important;
     right: env(safe-area-inset-right, var(--kb-side-gap)) !important;
-    bottom: calc(env(safe-area-inset-bottom, var(--kb-side-gap))) !important;
+    /* push keyboard up from bottom by the requested margin (plus safe-area) */
+    bottom: calc(var(--kb-bottom-gap) + env(safe-area-inset-bottom, 0px)) !important;
     margin: 0 auto !important;
-    width: calc(100% - (env(safe-area-inset-left, var(--kb-side-gap)) + env(safe-area-inset-right, var(--kb-side-gap)) + 32px));
+    width: calc(100% - (env(safe-area-inset-left, var(--kb-side-gap)) + env(safe-area-inset-right, var(--kb-side-gap)) + 24px));
     max-width: 420px;
-    /* extra horizontal padding so the keyboard 'breathes' and shrinks proportionally */
-    padding: 10px 20px;
-    background: rgba(94,96,206,0.04);
+    /* reduce padding to free more horizontal room on very narrow screens */
+    padding: 6px 10px;
+    background: transparent; /* container background subtle to avoid occluding content */
     border-radius: 12px;
     z-index: 9999;
-    gap: 8px;
+    gap: 6px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-height: 38vh; /* reduce so it doesn't cover too much */
-    overflow-y: auto;
+    /* keep the fixed rectangle silhouette on mobile too; compute height from width */
+    aspect-ratio: 10 / 4;
+    /* remove internal scrolling so the entire keyboard remains visible; we'll
+       instead push the keyboard up with a bottom gap so it doesn't sit flush */
+    /* no max-height, no overflow-y (allow natural scaling via aspect-ratio) */
     -webkit-overflow-scrolling: touch;
+    /* Subtle pseudo-background behind keys so container edges don't cover keys */
   }
+
+  .keyboard::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(94,96,206,0.04);
+    border-radius: 12px;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Ensure keys/rows render above the pseudo-background */
+  .keyboard > .row,
+  .keyboard .key,
+  .keyboard .key.special {
+    position: relative;
+    z-index: 2;
+  }
+  
 
   /* For small screens: compute key width so the longest row (10 keys) fits
      and prevent wrapping — this preserves proportions across rows. */
@@ -231,27 +266,53 @@ nav h1 {
   .key {
     box-sizing: border-box;
     flex: 0 0 auto;
-    width: calc((100% - (9 * var(--key-gap)) - 40px) / 10);
+    /* calculate key width so 10 keys + 9 gaps + padding fit inside the keyboard's width */
+    width: calc((100% - (9 * var(--key-gap)) - 24px) / 10);
+    /* prevent special cases where a key would grow too large on strange viewports */
+    max-width: calc(((100% - (9 * var(--key-gap)) - 24px) / 10) * 1.05);
     height: var(--key-h);
-    min-width: 28px; /* safeguard */
-    font-size: 0.9rem;
+    min-width: 18px; /* allow slightly smaller keys to preserve proportions on very narrow screens */
+    font-size: 0.86rem;
   }
 
   /* Slightly larger specials but clamped so rows still fit */
   .key.special {
-    width: calc(((100% - (9 * var(--key-gap)) - 40px) / 10) * 1.25);
+    /* keep special keys slightly larger but clamp aggressively so they don't force overflow */
+    width: calc(((100% - (9 * var(--key-gap)) - 24px) / 10) * 1.05);
+    max-width: calc(((100% - (9 * var(--key-gap)) - 24px) / 10) * 1.05);
+    font-size: 0.82rem;
+    padding: 0 6px; /* give special keys a tiny horizontal pad for label breathing */
   }
 
-  /* Use translateX offsets instead of padding to avoid changing container width */
-  /* Use percentage-based offsets so rows keep proportion as the keyboard shrinks */
-  .keyboard > .row:nth-of-type(1) { transform: translateX(0); }
-  .keyboard > .row:nth-of-type(2) { transform: translateX(6%); }
-  .keyboard > .row:nth-of-type(3) { transform: translateX(12%); }
+  /* By default hide any extra icon node; we'll show it on very small screens */
+  .key .key-icon { display: none; }
+  .key .key-text { display: inline-block; }
+
+  /* Swap ENTER text for icon on narrow viewports to save horizontal padding */
+  @media screen and (max-width: 400px) {
+    .key.special .key-text { display: none; }
+    .key.special .key-icon { display: inline-block; color: #fff; font-size: 1.05rem; }
+    /* reduce special key horizontal padding so icon fits comfortably */
+    .key.special { padding: 0 4px; }
+  }
+
+  /* Remove manual translate offsets — keep rows centered and non-wrapping so
+    the keyboard preserves its rectangular shape and scales proportionally. */
 
   /* Give the page content room so the keyboard doesn't fully overlap the board */
   .game {
-    padding-bottom: calc( (var(--key-h) * var(--keyboard-rows)) + 64px );
+    /* Compute bottom padding based on keyboard rectangle so board isn't
+       overlapped. Keyboard width mirrors min(90vw, 420px); aspect-ratio
+       is 10/4 so height = width / (10/4). Add 24px of breathing room. */
+    padding-bottom: calc( min(90vw, 420px) / (10/4) + 24px );
     box-sizing: border-box;
+  }
+
+  /* Extra adjustments for very narrow screens: reduce gaps and font sizes */
+  @media screen and (max-width: 360px) {
+    :root { --key-gap: 2px; }
+    .key { font-size: 0.74rem; }
+    .key.special { font-size: 0.72rem; width: calc(((100% - (9 * var(--key-gap)) - 24px) / 10) * 1.02); max-width: calc(((100% - (9 * var(--key-gap)) - 24px) / 10) * 1.02); }
   }
 
   /* Avoid horizontal scrolling on the body */
