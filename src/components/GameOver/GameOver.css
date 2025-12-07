@@ -1,22 +1,91 @@
+/* Modern, responsive styling for the GameOver modal */
+.gameOver{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:12px;
+    padding: 18px 18px 22px 18px;
+    color: #fff;
+}
+
+.gameOver h1{
+    margin: 4px 0 6px 0;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align:center;
+}
+
+.dailyPic{
+    width: min(260px, 72%);
+    max-width: 300px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(2,6,23,0.45);
+    border: 4px solid rgba(255,255,255,0.03);
+}
+
+.gameOver-msg{
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color: #ffffff;
+}
+
 .gameOver-text{
     margin: 0;
-    padding-bottom: 15px;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.95);
 }
-.dailyPic{
-    border-radius: 5px;
-    max-width: 300px;
+
+.gameOver hr{
+    width: 100%;
+    border: none;
+    height: 1px;
+    background: rgba(255,255,255,0.06);
+    margin: 8px 0 6px 0;
 }
-.gameOver h1{
-    font-size:1.5em;
-    text-align: center;
-}
+
 .gameOver-nextChardle{
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    font-weight: bold;
-    
+    display:flex;
+    justify-content:center;
+    margin-top: 6px;
+    margin-bottom: 2px;
+    font-weight:700;
+    letter-spacing:1px;
 }
-.gameOver-msg{
-    text-align: center;
+
+.countdown-wrapper{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+/* Small devices: make layout more compact */
+@media (max-width:420px){
+    .gameOver{ padding: 14px; }
+    .gameOver h1{ font-size: 1.4rem; }
+    .dailyPic{ width: min(220px, 70%); }
+    .gameOver-text{ font-size: 0.88rem; }
+}
+
+@media (max-width:360px){
+    .gameOver h1{ font-size: 1.2rem; }
+    .dailyPic{ width: min(180px, 62%); }
+    .gameOver-text{ font-size: 0.82rem; }
+}
+
+/* Make sure countdown timer elements (if present) are readable */
+.countdown-timer{
+    display:flex;
+    gap:12px;
+    justify-content:center;
+    align-items:center;
+    font-weight:700;
 }

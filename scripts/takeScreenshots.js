@@ -1,3 +1,4 @@
+//This component is to help copilot take screenshots of the current state of the app.
 const { chromium } = require('playwright');
 const fs = require('fs');
 
