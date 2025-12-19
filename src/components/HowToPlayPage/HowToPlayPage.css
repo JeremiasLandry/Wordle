@@ -1,0 +1,52 @@
+/* Creator card under Get Back button */
+.creator-card{
+  display:flex; /* block-level flex so it sits on its own line */
+  align-items:center;
+  gap:12px;
+  margin-top:22px; /* ensure separation from the back button */
+  padding:5px 12px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: transform .12s ease, background .12s ease;
+  margin-left: auto; /* center within the page width */
+  margin-right: auto;
+  max-width:200px;
+  margin-bottom: 50px;
+}
+
+.creator-card:hover{ transform: translateY(-4px); background: rgba(255,255,255,0.08); }
+
+.creator-logo{
+  width: clamp(34px, 6vw, 46px);
+  height: clamp(34px, 6vw, 46px);
+  object-fit: contain;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.02);
+  padding:4px;
+}
+
+.creator-text{
+  font-weight: 600;
+  font-size: clamp(0.85rem, 1.6vw, 1rem);
+  color: #ffffff;
+}
+
+/* Responsive: center card on narrow screens and make it full width with smaller gaps */
+@media (max-width: 420px){
+  .creator-card{
+    display:flex;
+    width: min(86%, 340px);
+    justify-content:flex-start;
+    gap:10px;
+    padding:10px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .creator-text{ font-size: 0.9rem; }
+}
+
+/* ensure the back button has some bottom margin so the card doesn't touch it */
+.getBack-btn{ display:inline-flex; margin-bottom:12px; }

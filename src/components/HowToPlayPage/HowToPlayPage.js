@@ -3,6 +3,8 @@ import { useNavigate, Link} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import GameTile from '../GameTile/GameTile';
+import Logo from './logoAzul.png';
+import './HowToPlayPage.css';
 
 function HowToPlayPage() {
   return (
@@ -64,6 +66,11 @@ function HowToPlayPage() {
                 GET BACK TO THE GAME
             </span>
         </Link>
+        
+                <a className="creator-card" href="https://www.instagram.com/unooficial.arg/" target="_blank" rel="noopener noreferrer">
+                    <img src={Logo} alt="Uno logo" className="creator-logo"/>
+                    <span className="creator-text">Created by Uno</span>
+                </a>
     </div>
   )
 }
