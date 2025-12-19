@@ -1,20 +1,19 @@
 /* ================== GLOBAL ================== */
+/* avoid horizontal scroll caused by 100vw and padding — use width:100% and global box-sizing */
+* { box-sizing: border-box; }
+.html, body { height: 100%; overflow-x: hidden; margin: 0; padding: 0; }
+/* make the page background the same as the app so any gaps never show white */
+html, body { background-color: #5E60CE; }
 .App {
   text-align: center;
   background-color: #5E60CE;
-  min-width: 100vw;
+  width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   color: white;
   font-family: 'Arial', Helvetica, sans-serif;
-  overflow-x: hidden;
-}
-
-body {
-  padding: 0;
-  margin: 0;
 }
 
 nav {
@@ -138,6 +137,13 @@ nav h1 {
   /* enforce a fixed rectangle silhouette so the keyboard always keeps its shape
      width / height = 10 / 4 (adjustable) — it will scale proportionally */
   aspect-ratio: 10 / 4;
+}
+
+/* Desktop / larger screens: keep keyboard visually separated from bottom
+   and give it breathing room so it doesn't feel glued to the viewport. This
+   intentionally does not affect the mobile rules where the keyboard is fixed. */
+@media screen and (min-width: 421px) {
+  .keyboard { margin-bottom: 56px; margin-top: 48px; }
 }
 
 /* target only rows inside keyboard to avoid interfering with board rows */
