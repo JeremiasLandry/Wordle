@@ -31,6 +31,11 @@ nav h1 {
   color: #fff;
 }
 
+/* Navbar icons: ensure FontAwesome SVGs and link icons render white */
+.navbar, .navbar a { color: #fff; }
+.navbar svg { color: #fff; fill: #fff; stroke: #fff; }
+.navbar .how-to-play-link { display: inline-flex; align-items: center; color: inherit; }
+
 .chardleLogo {
   max-width: 180px;   /* Ajusta este valor para desktop */
   height: auto;

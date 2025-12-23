@@ -1,5 +1,5 @@
 import {marvelCharactersList} from './marvelCharacters';
-
+// A dictionary of 5-letter words for Wordle-like game
 const dictionary = [
   'stark','steve','floki','abbie','abyss','angel','annie','alice','aaron',
   'babar','baloo','bambi','basil','beast','betty','biffo','bimbo','blade',
@@ -44,7 +44,12 @@ const dictionary = [
   'quill','raven','sylas','thoma','ulyss','vivar','waltz','xanad','yulie',
   'zayla','alric','brynn','clyde','daria','elvin','floyd','glenn','harry',
   'imran','jules','kayla','lucas','maria','nyssa','odell','paige','quinn',
-  'ryker','sarah','talia','uriel','vigor','wesly','xenia','yanni','zarek'
+  'ryker','sarah','talia','uriel','vigor','wesly','xenia','yanni','zarek',
+  'azula','blaze','cyber','drake','ember','flame','glint','hydra','ionic',
+  'jynxx','krypt','lumen','matrix','neon','omega','plasma','quark','radar',
+  'saber','tazer','ultra','xenon','yokai','Zibai', 'Varka', 'Lauma','Nefer',
+  'clank', 'alice', 'flins', 'dehya', 'diluc', 'ganyu', 'hutao', 'nilou',
+  'yelan', 'razor', 'durin','thoma', 'venti'
 ];
 
 marvelCharactersList.forEach((e)=>{
