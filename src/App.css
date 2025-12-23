@@ -294,13 +294,17 @@ nav h1 {
   .key .key-icon { display: none; }
   .key .key-text { display: inline-block; }
 
-  /* Swap ENTER text for icon on narrow viewports to save horizontal padding */
-  @media screen and (max-width: 400px) {
+  /* Swap ENTER text for icon on narrow viewports to save horizontal padding.
+     Extend to 421px so the enter-key shows only the icon between 401-421px. */
+  @media screen and (max-width: 421px) {
     .key.special .key-text { display: none; }
     .key.special .key-icon { display: inline-block; color: #fff; font-size: 1.05rem; }
     /* reduce special key horizontal padding so icon fits comfortably */
     .key.special { padding: 0 4px; }
   }
+
+  /* specific enter key icon sizing */
+  .enter-key .key-icon { font-size: 1.1rem; line-height: 1; }
 
   /* Remove manual translate offsets — keep rows centered and non-wrapping so
     the keyboard preserves its rectangular shape and scales proportionally. */

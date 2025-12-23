@@ -2,7 +2,7 @@
 import React, { useContext, useEffect, useCallback } from 'react';
 import { AppContext } from '../../App';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDeleteLeft, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 
 const keysRow1 = ['Q','W','E','R','T','Y','U','I','O','P'];
 const keysRow2 = ['A','S','D','F','G','H','J','K','L','Ñ'];
@@ -72,11 +72,9 @@ export default function Keyboard() {
       <div className="row">{keysRow1.map(renderKey)}</div>
       <div className="row">{keysRow2.map(renderKey)}</div>
       <div className="row">
-        <button className="key special" onClick={onEnter}>
+        <button className="key special enter-key" onClick={onEnter} aria-label="Enter">
           <span className="key-text">ENTER</span>
-          <span className="key-icon" aria-hidden>
-            <FontAwesomeIcon icon={faCheck} />
-          </span>
+          <span className="key-icon" aria-hidden>⏎</span>
         </button>
         {keysRow3.map(renderKey)}
         <button className="key special" onClick={onDelete}>

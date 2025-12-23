@@ -48,5 +48,18 @@
   .creator-text{ font-size: 0.9rem; }
 }
 
+/* Add safe horizontal padding on narrow viewports so text doesn't touch the edges */
+@media (max-width: 480px) {
+  .how-to-play {
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+  }
+  .how-to-play .text-container {
+    padding-left: 4px; /* slight inner padding for long paragraphs */
+    padding-right: 4px;
+  }
+}
+
 /* ensure the back button has some bottom margin so the card doesn't touch it */
 .getBack-btn{ display:inline-flex; margin-bottom:12px; }
