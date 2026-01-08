@@ -53,10 +53,11 @@
 .gameOver-nextChardle{
     display:flex;
     justify-content:center;
-    margin-top: 6px;
+    margin-top: 4px;
     margin-bottom: 2px;
-    font-weight:700;
-    letter-spacing:1px;
+    font-size: 1.1rem;
+    font-weight:600;
+    letter-spacing:0.5px;
 }
 
 .countdown-wrapper{

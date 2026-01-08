@@ -3,12 +3,12 @@ import { AppContext } from "../../App"
 import Modal from '../Modal/Modal.js'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCheck, faXmark} from '@fortawesome/free-solid-svg-icons'
-import dailyPic from './dailyPic.jpg';
+// import dailyPic from './dailyPic.jpg';
 import './GameOver.css';
 import CountdownTimer from '../CountdownTimer/CountdownTimer'
 
 function GameOver() {
-  const {gameOver, correctWord, currAttempt, board} = useContext(AppContext)
+  const {gameOver, correctWord, currAttempt, board, currentCharacter} = useContext(AppContext)
   const [activeModal,setActiveModal] = useState(true);
 
   const today = new Date();
@@ -25,8 +25,8 @@ function GameOver() {
     buttonShow={true}
     >
       <div className='gameOver'>
-          <h1>{correctWord.toUpperCase()}</h1>
-          <img className='dailyPic' src={dailyPic} alt='DailyPic'/>
+          <h1>{currentCharacter ? currentCharacter.title.toUpperCase() : correctWord.toUpperCase()}</h1>
+          <img className='dailyPic' src={currentCharacter ? currentCharacter.imageUrl : ''} alt={currentCharacter ? currentCharacter.title : 'DailyPic'} style={{maxWidth:'180px',borderRadius:'12px',margin:'10px 0'}}/>
           <h3>
           {
             gameOver.guessedWord ? 

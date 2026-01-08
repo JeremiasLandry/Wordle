@@ -1,6 +1,8 @@
+
 import {useState, useEffect, useContext} from 'react';
 import {getRemainingTimeUntilMsTimestamp} from './Utils/CountdownTimerUtils';
-import { AppContext } from '../../App'
+import { AppContext } from '../../App';
+import { getCharacterForDate } from '../../wordleBank';
 import './CountdownTimer.css';
 
 const defaultRemainingTime = {
@@ -10,8 +12,10 @@ const defaultRemainingTime = {
     days: '00'
 }
 
+
+
 const CountdownTimer = ({countdownTimestampMs}) => {
-    const {gameOver, board, currAttempt, correctWord, setCorrectWord} = useContext(AppContext);
+    const {gameOver, board, currAttempt, correctWord, setCorrectWord, setCurrentCharacter, playableCharacters} = useContext(AppContext);
 
     localStorage.setItem("board", JSON.stringify(board))
     localStorage.setItem("gameOver", JSON.stringify(gameOver))
@@ -30,12 +34,30 @@ const CountdownTimer = ({countdownTimestampMs}) => {
         setRemainingTime(getRemainingTimeUntilMsTimestamp(countdown));
     }
     
-    if (remainingTime.days === '00' && remainingTime.hours === '00' && remainingTime.minutes === '00' && remainingTime.seconds === '01') {
-        localStorage.removeItem('gameOver');
-        localStorage.removeItem('board');
-        localStorage.removeItem('currAttempt');
-        setCorrectWord('waiting for next character')
-    }
+    useEffect(() => {
+        if (remainingTime.days === '00' && remainingTime.hours === '00' && remainingTime.minutes === '00' && remainingTime.seconds === '01') {
+            localStorage.removeItem('gameOver');
+            localStorage.removeItem('board');
+            localStorage.removeItem('currAttempt');
+            // Calcular personaje y palabra del nuevo día
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            tomorrow.setHours(0,0,0,0);
+            if (playableCharacters && playableCharacters.length > 0) {
+                const nextChar = getCharacterForDate(playableCharacters, tomorrow);
+                setCurrentCharacter && setCurrentCharacter(nextChar);
+                if (nextChar && nextChar.word && nextChar.word.length === 5) {
+                    setCorrectWord(nextChar.word);
+                } else if (nextChar && nextChar.title && nextChar.title.length === 5) {
+                    setCorrectWord(nextChar.title);
+                } else {
+                    setCorrectWord('mario');
+                }
+            } else {
+                setCorrectWord('waiting for next character');
+            }
+        }
+    }, [remainingTime, playableCharacters, setCurrentCharacter, setCorrectWord]);
 
     return(
         <div className="countdown-timer">

@@ -6,7 +6,7 @@ import MainPage from './components/MainPage/MainPage';
 import HowToPlayPage from './components/HowToPlayPage/HowToPlayPage';
 import NavBar from './components/NavBar/NavBar';
 import Statistics from './components/Statistics/Statistics.js';
-import dictionary from './wordleBank';
+import dictionary, { getCharacterForDate } from './wordleBank';
 import Warning from './components/Warning/Warning';
 
 const handleStorage = (stat) => {
@@ -26,6 +26,8 @@ export const AppContext = createContext();
 function App() {
   // daily word
   const [correctWord, setCorrectWord] = useState('mario');
+  const [currentCharacter, setCurrentCharacter] = useState(null);
+  const [playableCharacters, setPlayableCharacters] = useState([]);
   const [today, setToday] = useState(localStorage.getItem('today') !== null ? localStorage.getItem('today') : 0);
   const [tomorrow, setTomorrow] = useState(localStorage.getItem('tomorrow') !== null ? localStorage.getItem('tomorrow') : 0);
 
@@ -72,6 +74,24 @@ function App() {
   }
 
   useEffect(()=>{ playedToday() },[])
+
+  // Load playableCharacters.json and set currentCharacter
+  useEffect(() => {
+    fetch('/playableCharacters.json')
+      .then(res => res.json())
+      .then(chars => {
+        setPlayableCharacters(chars);
+        const char = getCharacterForDate(chars, new Date());
+        setCurrentCharacter(char);
+        if (char && char.word && char.word.length === 5) {
+          setCorrectWord(char.word);
+        } else if (char && char.title && char.title.length === 5) {
+          setCorrectWord(char.title);
+        } else {
+          setCorrectWord('mario');
+        }
+      });
+  }, []);
 
   const [board, setBoard] = useState(() => {
   const stickyValue = window.localStorage.getItem('board');
@@ -245,7 +265,9 @@ function App() {
       winPercentage,
       modalShow,
       setModalShow,
-      setCorrectWord
+      setCorrectWord,
+      currentCharacter,
+      playableCharacters
     }}>
      <BrowserRouter>
         <div className="App">

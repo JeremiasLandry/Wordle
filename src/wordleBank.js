@@ -49,7 +49,7 @@ const dictionary = [
   'jynxx','krypt','lumen','matrix','neon','omega','plasma','quark','radar',
   'saber','tazer','ultra','xenon','yokai','Zibai', 'Varka', 'Lauma','Nefer',
   'clank', 'alice', 'flins', 'dehya', 'diluc', 'ganyu', 'hutao', 'nilou',
-  'yelan', 'razor', 'durin','thoma', 'venti'
+  'yelan', 'razor', 'durin','thoma', 'venti', 'aeiou','abcde'
 ];
 
 marvelCharactersList.forEach((e)=>{
