@@ -60,4 +60,60 @@ marvelCharactersList.forEach((e)=>{
 
 console.log(dictionary)
 
+// --- Playable characters helper utilities ---
+function cyrb53(str, seed = 0) {
+  let h1 = 0xDEADBEEF ^ seed, h2 = 0x41C6CE57 ^ seed;
+  for (let i = 0, ch; i < str.length; i++) {
+    ch = str.charCodeAt(i);
+    h1 = Math.imul(h1 ^ ch, 2654435761);
+    h2 = Math.imul(h2 ^ ch, 1597334677);
+  }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return 4294967296 * (2097151 & h2) + (h1 >>> 0);
+}
+
+function mulberry32(a) {
+  return function() {
+    var t = a += 0x6D2B79F5;
+    t = Math.imul(t ^ t >>> 15, t | 1);
+    t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  }
+}
+
+function seededShuffle(array, seedStr) {
+  const arr = array.slice();
+  const seed = cyrb53(seedStr + '::seed');
+  const rand = mulberry32(seed >>> 0);
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+/**
+ * Given an array of playable characters, deterministically pick the character
+ * for a given date. It shuffles the list with a seed (baseStart) and then
+ * picks the element at index (daysSinceStart % n). This ensures a pseudo-
+ * random order without repeats until the list is exhausted.
+ *
+ * @param {Array} playableCharacters - array of objects {title, imageUrl, word}
+ * @param {Date} date - Date to select for (uses local date portion)
+ * @param {String} baseStart - seed string (e.g., '2026-01-01')
+ */
+function getCharacterForDate(playableCharacters, date = new Date(), baseStart = '2026-01-01') {
+  if (!Array.isArray(playableCharacters) || playableCharacters.length === 0) return null;
+  const start = new Date(baseStart + 'T00:00:00');
+  const localDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const days = Math.floor((localDate - start) / (1000 * 60 * 60 * 24));
+  const n = playableCharacters.length;
+  const shuffled = seededShuffle(playableCharacters, baseStart + '::order');
+  const idx = ((days % n) + n) % n; // positive modulo
+  return shuffled[idx];
+}
+
+export { getCharacterForDate, seededShuffle, cyrb53 };
+
 export default dictionary
