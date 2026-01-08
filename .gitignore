@@ -21,3 +21,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+# local service account (sensitive)
+serviceAccountKey.json
+
+# generated playable characters JSON and images
+/public/playableCharacters.json
+/public/images/characters/
